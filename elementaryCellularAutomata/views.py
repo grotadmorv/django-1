@@ -1,4 +1,10 @@
 from django.http import HttpResponse
+from django.views import generic
+from elementaryCellularAutomata.forms import WolframForm
+from django.core.exceptions import ValidationError
+from django.shortcuts import render
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -53,7 +59,21 @@ def Wolf(x):
             else:
                 line = line + "#"
         buffer.append(line)
-    return '<pre>' + '\n'.join(buffer) + '</pre>'
+    return '\n'.join(buffer)
 
-def index(request):
-    return HttpResponse(Wolf(50))
+def show(request):
+    rule_number = int(request.POST['rule_number'])
+    if not 0 <= rule_number <= 256:
+        raise ValidationError("parameter rule number should have a value between 0 and 256")
+    
+    value = Wolf(rule_number)
+    return render(request, 'elementaryCellularAutomata/show.html', {
+        'string': value,
+        'rule_number': rule_number,
+    })
+
+
+class WolfForm(FormView):
+    template_name = 'elementaryCellularAutomata/form.html'
+    form_class = WolframForm
+    success_url = reverse_lazy('show')
