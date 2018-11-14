@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from pasteAsMarkdown.models import MarkdownModel
 from markdown2 import Markdown
 from django.views.generic.edit import FormView
+import uuid
+
 
 
 class PastebinForm(ModelForm):
@@ -22,7 +24,11 @@ class PasteFormMarkdown(FormView):
 
 def create_url(request):
     if request.POST['markdown_txt']:
-        a = MarkdownModel(markdown_txt=request.POST['markdown_txt'], path=request.POST['path'])
+        if not request.POST['path']:
+            path = str(uuid.uuid4())
+        else:
+            path = request.post['path']
+        a = MarkdownModel(markdown_txt=request.POST['markdown_txt'], path=path)
         a.save()
         # print(Markdown.objects.all())
         return HttpResponseRedirect(f"/pasteAsMarkdown/show/{a.path}")
