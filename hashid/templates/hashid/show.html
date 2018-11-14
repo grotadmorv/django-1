@@ -26,10 +26,9 @@
     </nav>
 
     <div class="container">
-        <h1>For rule {{ rule_number }}, we have : </h1>
-
+        <h3>For the string hash '{{ hash_value }}' : </h3>
         <div>
-            <pre>{{ string|linebreaks }}</pre>
+            <p>{% if string == None %} Hash not found :( {% else %} Hash found : {{ string }} {% endif %}</p>
         </div>
     </div>
 </body>
