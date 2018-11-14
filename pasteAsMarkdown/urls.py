@@ -5,5 +5,7 @@ from . import views
 app_name = "pasteAsMarkdown"
 
 urlpatterns = [
-    path('test/', views.index, name="test")
+    path('form/', views.PasteFormMarkdown.as_view() , name='form'),
+    path('create/', views.create_url, name="create"),
+    path('show/<str:path>', views.show, name='show'),
 ]
