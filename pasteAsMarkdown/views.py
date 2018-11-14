@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.forms import ModelForm
 from django.urls import reverse_lazy
-from pasteAsMarkdown.models import Markdown
+from pasteAsMarkdown.models import MarkdownModel
+from markdown2 import Markdown
 from django.views.generic.edit import FormView
 
 
 class PastebinForm(ModelForm):
     class Meta:
-        model = Markdown
+        model = MarkdownModel
         fields = ["markdown_txt", "path"]
 
 
@@ -21,14 +22,16 @@ class PasteFormMarkdown(FormView):
 
 def create_url(request):
     if request.POST['markdown_txt']:
-        a = Markdown(markdown_txt=request.POST['markdown_txt'], path=request.POST['path'])
+        a = MarkdownModel(markdown_txt=request.POST['markdown_txt'], path=request.POST['path'])
         a.save()
         # print(Markdown.objects.all())
         return HttpResponseRedirect(f"/pasteAsMarkdown/show/{a.path}")
 
 def show(request, path):
-    m = Markdown.objects.get(path=path)
+    markdowner = Markdown()
+    markdown_txt = markdowner.convert(str(MarkdownModel.objects.get(path=path)))
     return render(request, 'pasteAsMarkdown/show.html', {
-        'path' : path
+        'path' : path,
+        'markdown_txt' : markdown_txt
     })
 

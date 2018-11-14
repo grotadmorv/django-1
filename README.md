@@ -1,5 +1,11 @@
 # django-1
 
+- Installation
+
+``pip install numpy``
+``pip install matplotlib``
+``pip install markdown2``
+
 - How to run project ? 
 
 run : ``` python manage.py runserver 8080 ```
