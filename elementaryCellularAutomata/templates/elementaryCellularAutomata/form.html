@@ -1,5 +1,40 @@
-<form action="{% url 'elementaryCellularAutomata:show'%}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Django 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">Django1</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{% url 'elementaryCellularAutomata:form'%}">Elementary Cellular Automata</a></li>
+                <li><a href="{% url 'pasteAsMarkdown:test'%}">Paste As Markdown</a></li>
+                <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form action="{% url 'elementaryCellularAutomata:show'%}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+</body>
+
+</html>
