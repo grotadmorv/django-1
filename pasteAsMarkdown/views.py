@@ -27,7 +27,7 @@ def create_url(request):
         if not request.POST['path']:
             path = str(uuid.uuid4())
         else:
-            path = request.post['path']
+            path = request.POST['path']
         a = MarkdownModel(markdown_txt=request.POST['markdown_txt'], path=path)
         a.save()
         # print(Markdown.objects.all())

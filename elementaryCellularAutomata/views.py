@@ -62,14 +62,14 @@ def Wolf(x):
     return '\n'.join(buffer)
 
 def show(request):
-    rule_number = int(request.POST['rule_number'])
-    if not 0 <= rule_number <= 256:
+    nmb = int(request.POST['nmb'])
+    if not 0 <= nmb <= 256:
         raise ValidationError("parameter rule number should have a value between 0 and 256")
     
-    value = Wolf(rule_number)
+    value = Wolf(nmb)
     return render(request, 'elementaryCellularAutomata/show.html', {
         'string': value,
-        'rule_number': rule_number,
+        'nmb': nmb,
     })
 
 

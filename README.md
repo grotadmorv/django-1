@@ -2,9 +2,11 @@
 
 - Installation
 
-``pip install numpy``
-``pip install matplotlib``
-``pip install markdown2``
+``
+pip install numpy
+pip install matplotlib
+pip install markdown2
+`` 
 
 - How to run project ? 
 
